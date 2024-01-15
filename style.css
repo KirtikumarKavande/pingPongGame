@@ -1,7 +1,33 @@
 html {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-*, *::after, *::before {
-    box-sizing: inherit;
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+#playing-table {
+  height: 450px;
+  width: 1000px;
+  border: 2px solid black;
+  position: relative;
+}
+
+#ball {
+  height: 20px;
+  width: 20px;
+  background-color: blue;
+  border: 1px solid blue;
+  border-radius: 20px;
+  position: absolute;
+}
+#paddle {
+  width: 20px;
+  height: 90px;
+  background-color: black;
+  position: absolute;
+
+  margin-left: 2px;
 }
