@@ -7,13 +7,12 @@ const paddle = document.getElementById("paddle");
 document.addEventListener("DOMContentLoaded", () => {
   let distanceToBeTraveledPerSecOnXDirection = 2;
   let distanceToBeTraveledPerSecOnYDirection = 2;
-  let currentPositionBallFromX = 2;
+  let currentPositionBallFromX = 20;
   let currentPositionBallFromY = 2;
 
-  // let currentPositionOfPaddleFromX=0
   let currentPositionOfPaddleFromY = 0;
 
-  let distanceToBeTraveledPerArrowPressOnY = 10;
+  let distanceToBeTraveledPerArrowPressOnY = 30;
 
   ball.style.left = `${currentPositionBallFromX}px`;
   ball.style.top = `${currentPositionBallFromY}px`;
@@ -43,11 +42,25 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       paddle.style.top = `${currentPositionOfPaddleFromY}px`;
     }
+
+    console.log("lets see", paddle.offsetLeft);
   });
 
   setInterval(() => {
     currentPositionBallFromX += distanceToBeTraveledPerSecOnXDirection;
     currentPositionBallFromY += distanceToBeTraveledPerSecOnYDirection;
+
+    console.log("sum", +paddle.offsetLeft + +paddle.offsetWidth);
+
+    ball.style.left = `${currentPositionBallFromX}px`;
+    ball.style.top = `${currentPositionBallFromY}px`;
+    if (
+      currentPositionBallFromX < paddle.offsetLeft + paddle.offsetWidth &&
+      currentPositionBallFromY > paddle.offsetTop &&
+      currentPositionBallFromY < paddle.offsetTop + paddle.offsetHeight
+    ) {
+      distanceToBeTraveledPerSecOnXDirection *= -1;
+    }
     if (
       currentPositionBallFromX > table.offsetWidth - ball.offsetWidth ||
       currentPositionBallFromX < 0
@@ -60,7 +73,5 @@ document.addEventListener("DOMContentLoaded", () => {
     ) {
       distanceToBeTraveledPerSecOnYDirection *= -1;
     }
-    ball.style.left = `${currentPositionBallFromX}px`;
-    ball.style.top = `${currentPositionBallFromY}px`;
   }, 10);
 });
