@@ -3,6 +3,7 @@ console.log("welcome to Kirtikumar world");
 const ball = document.getElementById("ball");
 const table = document.getElementById("playing-table");
 const paddle = document.getElementById("paddle");
+let score=0
 
 document.addEventListener("DOMContentLoaded", () => {
   let distanceToBeTraveledPerSecOnXDirection = 2;
@@ -60,6 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
       currentPositionBallFromY < paddle.offsetTop + paddle.offsetHeight
     ) {
       distanceToBeTraveledPerSecOnXDirection *= -1;
+      score++
     }
     if (
       currentPositionBallFromX > table.offsetWidth - ball.offsetWidth ||
@@ -73,5 +75,33 @@ document.addEventListener("DOMContentLoaded", () => {
     ) {
       distanceToBeTraveledPerSecOnYDirection *= -1;
     }
-  }, 10);
+    console.log("currentPositionBallFromX",currentPositionBallFromX)
+  if(currentPositionBallFromX===0){
+    alert("game over","your score is",score)
+    currentPositionBallFromX = 22;
+
+    location.reload()
+  }
+  }, 1);
+
+  document.addEventListener("mousemove", (e) => {
+    e.preventDefault();
+    console.log("mouse move", e.clientX);
+    let mouseDistanceFromTop = e.clientY;
+    let distanceOfTableFromTop = table.offsetTop;
+
+    //  This below is done to make the paddle move relative to its center
+    let mousePointControl =
+      mouseDistanceFromTop - distanceOfTableFromTop - paddle.offsetHeight / 2;
+    currentPositionOfPaddleFromY = mousePointControl;
+    
+    if (
+      currentPositionOfPaddleFromY <= 0 ||
+      currentPositionOfPaddleFromY > table.offsetHeight - paddle.offsetHeight
+    )
+      return;
+
+    paddle.style.top = `${mousePointControl}px`;
+  });
+  
 });
